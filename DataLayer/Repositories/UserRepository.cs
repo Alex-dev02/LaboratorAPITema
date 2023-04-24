@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Repositories
 {
-    public class AccountRepository : RepositoryBase<User>
+    public class UserRepository : RepositoryBase<User>
     {
         private readonly AppDbContext dbContext;
 
-        public AccountRepository(AppDbContext dbContext) : base(dbContext)
+        public UserRepository(AppDbContext dbContext) : base(dbContext)
         {
             this.dbContext = dbContext;
         }

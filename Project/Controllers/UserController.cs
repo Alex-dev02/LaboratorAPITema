@@ -1,4 +1,6 @@
-﻿using Core.Services;
+﻿using Core.Dtos;
+using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Project.Controllers
@@ -10,6 +12,22 @@ namespace Project.Controllers
         public UserController(UserService userService)
         {
             this.userService = userService;
+        }
+        [HttpPost("/register")]
+        [AllowAnonymous]
+        public IActionResult Register(RegisterDto payload)
+        {
+            userService.Register(payload);
+            return Ok();
+        }
+
+        [HttpPost("/login")]
+        [AllowAnonymous]
+        public IActionResult Login(LoginDto payload)
+        {
+            var jwtToken = userService.ValidateLogin(payload);
+
+           return Ok(new { token = jwtToken });
         }
     }
 }
