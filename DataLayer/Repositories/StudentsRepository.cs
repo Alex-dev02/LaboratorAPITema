@@ -31,7 +31,10 @@ namespace DataLayer.Repositories
 
             return result;
         }
-
+        public Student GetByEmail(string email)
+        {
+            return dbContext.Students.FirstOrDefault(e => e.Email == email);
+        }
         public List<string> GetClassStudents(int classId)
         {
             var results = dbContext.Students

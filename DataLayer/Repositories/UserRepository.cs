@@ -15,5 +15,10 @@ namespace DataLayer.Repositories
         {
             this.dbContext = dbContext;
         }
+
+        public User GetByEmail(string email)
+        {
+            return dbContext.Users.FirstOrDefault(u => u.Email == email);
+        }
     }
 }

@@ -50,12 +50,27 @@ namespace Core.Services
                 PasswordHash = hashedPassword,
                 Role = UserRole.Professor,
             });
+            unitOfWork.SaveChanges();
         }
         public string ValidateLogin(LoginDto payload)
         {
+            User user = unitOfWork.Students.GetByEmail(payload.Email);
+            
+            if (user == null)
+            {
+                user = unitOfWork.User.GetByEmail(payload.Email);
 
+                if (user == null)
+                    return null;
+            }
 
-            return default(string);
+            var passwordFine = authService.VerifyHashedPassword(user.PasswordHash, payload.Password);
+
+            if (passwordFine)
+            {
+                return authService.GetToken(user, user.Role);
+            }
+            return null;
         }
     }
 }

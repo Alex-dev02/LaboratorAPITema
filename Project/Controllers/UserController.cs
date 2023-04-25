@@ -1,5 +1,6 @@
 ﻿using Core.Dtos;
 using Core.Services;
+using DataLayer.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,7 +28,13 @@ namespace Project.Controllers
         {
             var jwtToken = userService.ValidateLogin(payload);
 
-           return Ok(new { token = jwtToken });
+            return Ok(new { token = jwtToken });
+        }
+        [HttpGet("/some")]
+        [Authorize(Roles = "Professor")]
+        public ActionResult<string> Some()
+        {
+            return Ok("SALUT");
         }
     }
 }
