@@ -10,7 +10,7 @@ continui sa primesc NotAuth pe endpointurile securizate.
 Oricum ar fi am rezolvat cerintele temei chiar daca aceasta parte nu functioneaza complet.
 
 Am creat o entitate User care inlocuieste pe cea Student. Cea Student va mosteni prorpietatile lui User si 
-v a adauga in plus doar notele obtinute.
+va adauga in plus doar notele obtinute de student.
 
 AuthService si restul configurarii de authentificare sunt asa ca in laboratorul 8, in UserController am adaugat endpointuri
 pentru a lua datele pentru toti studentii cat si pentru un singur student prin id (tot de catre profesor).
