@@ -2,7 +2,9 @@
 using Core.Services;
 using DataLayer.Dtos;
 using DataLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Project.Controllers
 {
@@ -87,6 +89,22 @@ namespace Project.Controllers
             var results = studentService.GetGroupedStudents();
 
             return Ok(results);
+        }
+
+        [HttpGet("/all-grades")]
+        [Authorize(Roles = "Student")]
+        public ActionResult<List<Grade>> GetGrades()
+        {
+            // user's id sending the request
+            var idClaim = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "id");
+
+            if (idClaim == null)
+            {
+                return BadRequest();
+            }
+
+            var userId = int.Parse(idClaim.Value);
+            return Ok(studentService.GetAllGrades(userId));
         }
     }
 }

@@ -95,5 +95,15 @@ namespace Core.Services
 
             return results;
         }
+
+        public List<DataLayer.Dtos.GradeDto> GetAllGrades(int studentId)
+        {
+            return unitOfWork.Students.GetAllGrades(studentId);
+        }
+        
+        public List<DataLayer.Dtos.GradeDto> GetAllStudentsGrades()
+        {
+            return unitOfWork.Students.GetAllStudentsGrades();
+        }
     }
 }

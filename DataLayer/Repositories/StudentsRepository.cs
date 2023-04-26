@@ -1,4 +1,5 @@
-﻿using DataLayer.Entities;
+﻿using DataLayer.Dtos;
+using DataLayer.Entities;
 using DataLayer.Enums;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,6 +61,24 @@ namespace DataLayer.Repositories
                 .ToDictionary(e => e.ClassId, e => e.Students);
 
             return results;
+        }
+
+        public List<GradeDto> GetAllGrades(int studentId)
+        {
+            var result = _dbContext.Grades.Where(g => g.StudentId == studentId);
+            return result.Select(g => new GradeDto{
+                Value = g.Value,
+                Course = g.Course
+            }).ToList();
+        }
+
+        public List<GradeDto> GetAllStudentsGrades()
+        {
+            return _dbContext.Grades.Select(g => new GradeDto
+            {
+                Course = g.Course,
+                Value = g.Value
+            }).ToList();
         }
     }
 }
